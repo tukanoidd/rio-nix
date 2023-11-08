@@ -181,11 +181,11 @@
     "rio": {
       "flake": false,
       "locked": {
-        "lastModified": 1699374791,
-        "narHash": "sha256-aNugjTwttEzt7Ya/qnvKCnCUvfP9LWARnF9yZGYZBco=",
+        "lastModified": 1699442325,
+        "narHash": "sha256-Pw53iZ1fpuuVg1ayuL/9lwioALop9czzcs2aTD92C6E=",
         "owner": "raphamorim",
         "repo": "rio",
-        "rev": "a4cb9ae43f8a017d44da3a0347b9db706ec35b55",
+        "rev": "7219d59beb9ebce3f2a7f4833a510b239eabc63c",
         "type": "github"
       },
       "original": {

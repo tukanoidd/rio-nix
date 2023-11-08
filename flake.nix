@@ -33,15 +33,19 @@
           crateName = "rioterm";
           crateOutputs = config.nci.outputs.${crateName};
 
-          toolchainConfig = "${rio}/rust-toolchain";
+          toolchainConfig = rio + "/rust-toolchain";
         in
         {
           nci = {
             inherit toolchainConfig;
 
-            projects.${crateName}.path = rio;
+            projects."rio".path = rio;
             crates.${crateName} = {
               export = true;
+              runtimeLibs = with pkgs; [
+                wayland
+                wayland-protocols
+              ];
               depsDrvConfig = {
                 mkDerivation = {
                   buildInputs = with pkgs; [
@@ -61,16 +65,11 @@
                     xorg.libxcb
                     libxkbcommon
                     python3
-                    wayland
-                    wayland-protocols
                   ];
                 };
               };
             };
           };
-          devShells.default = crateOutputs.devShell.overrideAttrs (old: {
-            packages = (old.packages or [ ]);
-          });
           packages.default = crateOutputs.packages.release;
         };
     };
