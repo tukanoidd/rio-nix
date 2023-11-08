@@ -40,35 +40,42 @@
             inherit toolchainConfig;
 
             projects."rio".path = rio;
-            crates.${crateName} = {
-              export = true;
-              runtimeLibs = with pkgs; [
-                wayland
-                wayland-protocols
-                freetype
-              ];
-              depsDrvConfig = {
-                mkDerivation = {
-                  buildInputs = with pkgs; [
-                    cmake
-                    pkg-config
-                    fontconfig
-                  ];
+            crates.${crateName} =
+              let
+                builAndBuildDepDeps = with pkgs; [
+                  pkg-config
+                ];
+                buildAndBuildDepAndRuntimeDeps = with pkgs; [
+                  fontconfig
+                ];
+                buildRuntimeDeps = with pkgs; [
+                  freetype
+                ] ++ buildAndBuildDepAndRuntimeDeps;
+              in
+              {
+                export = true;
+                runtimeLibs = with pkgs; [
+                  wayland
+                  wayland-protocols
+                ] ++ buildRuntimeDeps;
+                depsDrvConfig = {
+                  mkDerivation = {
+                    buildInputs = with pkgs; [
+                      cmake
+                    ] ++ builAndBuildDepDeps ++ buildAndBuildDepAndRuntimeDeps;
+                  };
+                };
+                drvConfig = {
+                  mkDerivation = {
+                    buildInputs = with pkgs; [
+                      gnumake
+                      xorg.libxcb
+                      libxkbcommon
+                      python3
+                    ] ++ builAndBuildDepDeps ++ buildRuntimeDeps;
+                  };
                 };
               };
-              drvConfig = {
-                mkDerivation = {
-                  buildInputs = with pkgs; [
-                    pkg-config
-                    fontconfig
-                    gnumake
-                    xorg.libxcb
-                    libxkbcommon
-                    python3
-                  ];
-                };
-              };
-            };
           };
           packages.default = crateOutputs.packages.release;
         };
