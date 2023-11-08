@@ -45,6 +45,7 @@
               runtimeLibs = with pkgs; [
                 wayland
                 wayland-protocols
+                freetype
               ];
               depsDrvConfig = {
                 mkDerivation = {
@@ -60,7 +61,6 @@
                   buildInputs = with pkgs; [
                     pkg-config
                     fontconfig
-                    freetype
                     gnumake
                     xorg.libxcb
                     libxkbcommon
