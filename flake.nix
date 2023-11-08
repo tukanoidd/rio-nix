@@ -58,6 +58,8 @@
                 runtimeLibs = with pkgs; [
                   wayland
                   wayland-protocols
+
+                  vulkan-loader
                 ] ++ buildRuntimeDeps;
                 depsDrvConfig = {
                   mkDerivation = {
