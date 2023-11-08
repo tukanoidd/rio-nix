@@ -50,6 +50,7 @@
                 ];
                 buildRuntimeDeps = with pkgs; [
                   freetype
+                  libxkbcommon
                 ] ++ buildAndBuildDepAndRuntimeDeps;
               in
               {
@@ -70,7 +71,6 @@
                     buildInputs = with pkgs; [
                       gnumake
                       xorg.libxcb
-                      libxkbcommon
                       python3
                     ] ++ builAndBuildDepDeps ++ buildRuntimeDeps;
                   };
