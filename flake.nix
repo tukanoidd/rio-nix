@@ -61,6 +61,8 @@
                     xorg.libxcb
                     libxkbcommon
                     python3
+                    wayland
+                    wayland-protocols
                   ];
                 };
               };
